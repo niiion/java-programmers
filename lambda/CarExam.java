@@ -7,7 +7,13 @@ public class CarExam{
         cars.add( new Car("중간차",5,2200,0) );
         cars.add( new Car("비싼차",5,3500,1) );
         
-        printCar(cars, new CheckCarForBigAndNotExpensive());
+        printCar(cars, 
+            //인터페이스 CheckCar를 구현하는 익명클래스를 만듭니다.
+            new CheckCar(){
+                public boolean test(Car car){
+                    return car.capacity >= 4 && car.price < 2500;
+                }
+            });
     }
     
     public static void printCar(List<Car> cars, CheckCar tester){
@@ -20,12 +26,5 @@ public class CarExam{
     
     interface CheckCar{
         boolean test(Car car);
-    }
-    
-    //내부클래스를 만들어서 사용합니다.
-    static class CheckCarForBigAndNotExpensive implements CheckCar{
-        public boolean test(Car car){
-            return car.capacity >= 4 && car.price < 2500;
-        }
-    }
+    }  
 }
